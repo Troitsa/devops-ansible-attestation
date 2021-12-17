@@ -1,0 +1,16 @@
+---
+
+- name: Install nginx
+  apt: 
+    name: nginx
+    state: latest
+- name: Add mysite
+  template:
+    src: templates/mysite
+    dest: /etc/nginx/sites-enabled/mysite
+    owner: dev
+    group: dev
+- name: Starting nginx
+  service:
+   name: nginx
+   state: started

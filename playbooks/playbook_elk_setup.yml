@@ -1,0 +1,11 @@
+---
+# sudo ansible-playbook -i hosts/elastic.hosts playbooks/playbook_elk_setup.yml
+
+- hosts: elk_stack
+  become: yes
+  roles:
+     - role: elastic_stack
+     - role: java
+     - role: logstash
+     - role: elasticsearch
+     - role: kibana

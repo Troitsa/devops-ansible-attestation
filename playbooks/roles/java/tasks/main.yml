@@ -1,0 +1,28 @@
+---
+
+- name: Install GnuPG
+  apt:
+    name: gnupg
+    update_cache: yes
+
+- name: Add the Apt signing key of AdoptOpenJDK from jfrog.io
+  apt_key:
+    url: https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public
+    state: present
+
+- name: Add apt repository for AdoptOpenJDK
+  apt_repository:
+    repo: "deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ {{ ansible_distribution_release }} main"
+    filename: adoptopenjdk_role
+    state: present
+
+- name: Install AdoptOpenJDK package
+  apt:
+    name: adoptopenjdk-13-hotspot
+
+- name: Set JAVA_HOME
+  lineinfile:
+    dest: /etc/environment
+    state: present
+    regexp: '^JAVA_HOME'
+    line: 'JAVA_HOME=/usr/lib/jvm/adoptopenjdk-13-hotspot-amd64'

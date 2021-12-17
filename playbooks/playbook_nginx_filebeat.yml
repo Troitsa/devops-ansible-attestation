@@ -1,0 +1,9 @@
+---
+# sudo ansible-playbook -i hosts/elastic.hosts playbooks/playbook_nginx_filebeat.yml
+
+- hosts: filebeat
+  become: yes
+  roles:
+    - role: elastic_stack
+    - role: nginx
+    - role: filebeat
